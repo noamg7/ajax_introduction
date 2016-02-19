@@ -2,9 +2,8 @@ var weatherData = {};
 $(document).ready(function(){
   var baseUrl = 'https://api.forecast.io/forecast/';
   var weatherData = {};
-
-  $('#get-weather').on('click', getWeather);
-
+//  $('#get-weather').on('click', getWeather);
+  $('#get-weather').on('click', showInfo);
 
 
   function buildUrl(lat, lon){
@@ -25,7 +24,6 @@ $(document).ready(function(){
     $.ajax(options);
   }
 
-
   function successHandler(data){
     weatherData = data;
     $('#output').text(JSON.stringify(data));
@@ -35,5 +33,30 @@ $(document).ready(function(){
 
   function errorHandler(err){
     console.log(err);
+  }
+  function showInfo(){
+    var lat = $('#latitude').val();
+    var lon = $('#longitude').val();
+    var ajaxOptions = {
+      url: buildUrl(lat, lon),
+      dataType: 'jsonp',
+      success: showInfoSuccess,
+      error: errorHandler,
+    };
+    $.ajax(ajaxOptions);
+  }
+  function showInfoSuccess(data){
+    console.log(data);
+    var source = $('#info').html();
+    var template = Handlebars.compile(source);
+    var extractedData = {
+      latitude: data.latitude,
+      longitude: data.longitude,
+      icon: data.currently.icon || "clear-night",
+      summary: data.currently.summary,
+      time: data.currently.time,
+    };
+    var html = template(extractedData);
+    $('#test-output').html(html);
   }
 });

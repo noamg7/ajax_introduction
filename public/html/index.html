@@ -19,7 +19,7 @@
         <input type="text" class="form-control" id="longitude" name="longtiude">
       </div>
       <button class="btn btn-default" id='get-weather'>Get Weather</button>
-      <button class="btn btn-warning" id="test">Text the template</button>
+
     </div>
     <hr>
     <div class="row">
@@ -27,7 +27,7 @@
 
       </pre>
     </div>
-    <div class="row" id="test-output"></div>
+    <div id="test-output"></div>
   </div><!--container-->
 
 
@@ -71,25 +71,48 @@
       <p><a class="btn btn-primary btn-lg" href="{{ btnLink }}" role="button">{{btnText}}</a></p>
     </div>
   </script>
-
+<script id="info" type="text/x-handlebars-template">
+  <div>
+    <div clas="row">
+       <div class="col-md-4">
+         <h3>Position: ({{latitude}}, {{longitude}})</h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <img src="img/{{ icon }}.jpg" alt="{{ icon }}" class="img-responsive">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+      <h5>{{time}}</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <p><em>{{summary}}</em></p>
+    </div>
+  </div>
+ </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
   <script>
-    var source = $('#jumbo-template').html();
-    var template = Handlebars.compile(source);
-    var data = {
-       title: "My New Post",
-       description: "This is my first post!",
-       btnText: 'Click',
-       btnLink: "http://www.lingscars.com"
-   };
-    var context = {title: "My New Post", body: "This is my first post!"};
-   var html = template(data);
-    $("#test-output").html(html);
-    $('#test').on('click', testTheTemplate);
-    function testTheTemplate(){
+  //   var source = $('#jumbo-template').html();
+  //   var template = Handlebars.compile(source);
+  //   var data = {
+  //      title: "My New Post",
+  //      description: "This is my first post!",
+  //      btnText: 'Click',
+  //      btnLink: "http://www.lingscars.com"
+  //  };
+  //var context = {title: "My New Post", body: "This is my first post!"};
+      // var html = template(data);
+      //  $("#test-output").html(html);
+      //  $('#test').on('click', testTheTemplate);
+      function testTheTemplate(){
       var source = $('#general-weather').html();
       var template = Handlebars.compile(source);
       var data = {
@@ -98,6 +121,7 @@
         summary: "This is my summary",
         iconImg: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSOTUectqNuUUIZDDkLjHJq1JJIoUZ9eKLu1HqbQNFc0-ueFMxK32TGKQ"
       };
+
       var html = template(data);
 
       $('#test-output').html(html);
